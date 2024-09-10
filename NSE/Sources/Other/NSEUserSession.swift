@@ -17,7 +17,7 @@ final class NSEUserSession {
                                                                                networkMonitor: nil)
     private let delegateHandle: TaskHandle?
 
-    init(credentials: KeychainCredentials, clientSessionDelegate: ClientSessionDelegate, appHooks: AppHooks) async throws {
+    init(credentials: KeychainCredentials, clientSessionDelegate: ClientSessionDelegate, appHooks: AppHooks, appSettings: CommonSettingsProtocol) async throws {
         userID = credentials.userID
         if credentials.restorationToken.passphrase != nil {
             MXLog.info("Restoring client with encrypted store.")
@@ -29,7 +29,8 @@ final class NSEUserSession {
                          httpProxy: URL(string: homeserverURL)?.globalProxy,
                          slidingSync: .restored,
                          sessionDelegate: clientSessionDelegate,
-                         appHooks: appHooks)
+                         appHooks: appHooks,
+                         appSettings: appSettings)
             .sessionPaths(dataPath: credentials.restorationToken.sessionDirectory.path(percentEncoded: false),
                           cachePath: credentials.restorationToken.cacheDirectory.path(percentEncoded: false))
             .username(username: credentials.userID)
