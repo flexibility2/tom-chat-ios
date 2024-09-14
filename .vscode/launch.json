@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "args": [],
+      "cwd": "${workspaceFolder:tom-chat-ios}",
+      "name": "Debug tools",
+      "program": "${workspaceFolder:tom-chat-ios}/.build/debug/tools",
+      "preLaunchTask": "swift: Build Debug tools"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "args": [],
+      "cwd": "${workspaceFolder:tom-chat-ios}",
+      "name": "Release tools",
+      "program": "${workspaceFolder:tom-chat-ios}/.build/release/tools",
+      "preLaunchTask": "swift: Build Release tools"
+    }
+  ]
+}

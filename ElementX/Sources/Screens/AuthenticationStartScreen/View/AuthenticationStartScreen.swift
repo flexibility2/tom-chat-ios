@@ -23,6 +23,8 @@ struct AuthenticationStartScreen: View {
                     .frame(width: geometry.size.width)
                     .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.hidden)
                 
+                Spacer()
+                
                 buttons
                     .frame(width: geometry.size.width)
                     .padding(.bottom, UIConstants.actionButtonBottomPadding)
@@ -33,49 +35,31 @@ struct AuthenticationStartScreen: View {
                     .frame(height: UIConstants.spacerHeight(in: geometry))
             }
             .frame(maxHeight: .infinity)
-            .safeAreaInset(edge: .bottom) {
-                Button {
-                    context.send(viewAction: .reportProblem)
-                } label: {
-                    Text(L10n.commonReportAProblem)
-                        .font(.compound.bodySM)
-                        .foregroundColor(.compound.textSecondary)
-                        .padding(.bottom)
-                }
-                .frame(width: geometry.size.width)
-            }
         }
         .navigationBarHidden(true)
-        .background {
-            AuthenticationStartScreenBackgroundImage()
-        }
+        .background(Color.white)
     }
     
     var content: some View {
         VStack(spacing: 0) {
             Spacer()
             
-            if verticalSizeClass == .regular {
-                Spacer()
-                
-                AuthenticationStartLogo(isOnGradient: true)
-            }
-            
-            Spacer()
-            
             VStack(spacing: 8) {
                 Text(L10n.screenOnboardingWelcomeTitle)
-                    .font(.compound.headingLGBold)
+                    .font(.custom("Avenir-Black", size: 32))
                     .foregroundColor(.compound.textPrimary)
                     .multilineTextAlignment(.center)
-                Text(L10n.screenOnboardingWelcomeMessage(InfoPlistReader.main.productionAppName))
-                    .font(.compound.bodyLG)
+
+                Text(L10n.screenOnboardingWelcomeMessage)
+                    .font(.custom("Avenir", size: 20))
                     .foregroundColor(.compound.textSecondary)
                     .multilineTextAlignment(.center)
+                if verticalSizeClass == .regular {
+                    AuthenticationStartLogo(isOnGradient: true)
+                }
             }
             .padding()
             .fixedSize(horizontal: false, vertical: true)
-            
             Spacer()
         }
         .padding(.bottom)
@@ -88,16 +72,16 @@ struct AuthenticationStartScreen: View {
         VStack(spacing: 16) {
             if context.viewState.isQRCodeLoginEnabled {
                 Button { context.send(viewAction: .loginWithQR) } label: {
-                    Label(L10n.screenOnboardingSignInWithQrCode, icon: \.qrCode)
+                    Text(L10n.screenOnboardingSignInWithQrCode)
                 }
-                .buttonStyle(.compound(.primary))
+                .buttonStyle(CustomGreenButtonStyle())
                 .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.signInWithQr)
             }
             
             Button { context.send(viewAction: .loginManually) } label: {
                 Text(context.viewState.isQRCodeLoginEnabled ? L10n.screenOnboardingSignInManually : L10n.actionContinue)
             }
-            .buttonStyle(.compound(.primary))
+            .buttonStyle(CustomGreenButtonStyle())
             .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.signIn)
         }
         .padding(.horizontal, verticalSizeClass == .compact ? 128 : 24)

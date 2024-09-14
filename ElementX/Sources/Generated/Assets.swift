@@ -43,6 +43,7 @@ internal enum Asset {
     internal static let locationMarkerShape = ImageAsset(name: "images/location-marker-shape")
     internal static let mediaPause = ImageAsset(name: "images/media-pause")
     internal static let mediaPlay = ImageAsset(name: "images/media-play")
+    internal static let myCustomLogo = ImageAsset(name: "images/my-custom-logo")
     internal static let notificationsPromptGraphic = ImageAsset(name: "images/notifications-prompt-graphic")
     internal static let pollWinner = ImageAsset(name: "images/poll-winner")
     internal static let waitingGradient = ImageAsset(name: "images/waiting-gradient")
